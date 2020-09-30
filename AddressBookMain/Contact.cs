@@ -6,10 +6,27 @@ namespace AddressBookSystem
 {
     class Contact
     {
-        public void createContact(string first_name,string last_name,  string city,  int zip, string phone_number, string email)
+        public string first_name;
+        public string last_name;
+        public string city;
+        public int zip;
+        public string phone_number;
+        public string email;
+
+        public Contact()
         {
-            AddressBook AB = new AddressBook("Kumamri", "Tirupathi Rao", "Srikakulam", 532221, "0123456789", "tirupathi9436@gmail.com");
-            
+
         }
+        public Contact(string first_name, string last_name, string city, int zip, string phone_number, string email)
+        {
+            this.first_name = first_name;
+            this.last_name = last_name;
+            this.city = city;
+            this.zip = zip;
+            this.phone_number = phone_number;
+            this.email = email;
+        }
+
+
     }
 }
