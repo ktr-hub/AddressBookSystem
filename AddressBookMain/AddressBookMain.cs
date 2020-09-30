@@ -34,21 +34,30 @@ namespace AddressBookSystem
             userInput(contact);
             contactList.Add(contact);
             contactDetailsMap.Add(contact.first_name, contact);
-            Console.WriteLine("New contact created");
+            Console.WriteLine("New contact created...");
         }
         public void editContact(string first_name)
         {
             Contact contact = contactDetailsMap[first_name];
             userInput(contact);
-            Console.WriteLine("Details edited");
+            Console.WriteLine("Details edited...");
         }
         public void viewContactNames()
         {
-            Console.WriteLine("\n\nContact names saved so far");
+            Console.WriteLine("\n\nContact names saved so far : ");
             foreach(Contact contact in contactList)
             {
                 Console.WriteLine(contact.first_name);
             }
         }
+
+        public void deleteContact(string first_name)
+        {
+
+            contactList.Remove(contactDetailsMap[first_name]);
+            contactDetailsMap.Remove(first_name);
+            Console.WriteLine("Contact " + first_name + " deleted successfully...");   
+        }
+
     }
 }

@@ -17,12 +17,17 @@ namespace AddressBookSystem
             addressBookMain.createContact();
             addressBookMain.viewContactNames();
 
-            Console.WriteLine("Provide first_name to edit info : ");
+            Console.WriteLine("Provide first_name of contact to be edited : ");
 
             string first_name = Console.ReadLine();
             addressBookMain.editContact(first_name);
             addressBookMain.viewContactNames();
 
+            Console.WriteLine("Provide first_name of contact to be deleted : ");
+
+            first_name = Console.ReadLine();
+            addressBookMain.deleteContact(first_name);
+            addressBookMain.viewContactNames();
         }
     }
 }

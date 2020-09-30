@@ -15,18 +15,7 @@ namespace AddressBookSystem
 
         public Contact()
         {
-
+            Console.WriteLine("In Constructor");
         }
-        public Contact(string first_name, string last_name, string city, int zip, string phone_number, string email)
-        {
-            this.first_name = first_name;
-            this.last_name = last_name;
-            this.city = city;
-            this.zip = zip;
-            this.phone_number = phone_number;
-            this.email = email;
-        }
-
-
     }
 }
