@@ -11,6 +11,8 @@ namespace AddressBookSystem
     {
         public List<Contact> contactList = new List<Contact>();
         public Dictionary<string, Contact> contactDetailsMap = new Dictionary<string, Contact>();
+        public Dictionary<Contact,string> cityMapWithPerson = new Dictionary<Contact, string>();
+        public Dictionary<Contact,string> stateMapWithPerson = new Dictionary<Contact, string>();
         public string addressBookUserName;
         static ValidationContext validationContext;
         static List<ValidationResult> results = new List<ValidationResult>();
@@ -156,7 +158,9 @@ namespace AddressBookSystem
         {
             Contact contact = new Contact();
             userInput(contact);
-            contactList.Add(contact);
+            contactList.Add(contact); 
+            cityMapWithPerson.Add(contact, contact.City);
+            stateMapWithPerson.Add(contact, contact.State);
             contactDetailsMap.Add(contact.FirstName, contact);
             Console.WriteLine("\nNew contact created...");
 
@@ -224,5 +228,23 @@ namespace AddressBookSystem
                 }
             }
         }
+
+        //UC 9 & UC 10: Dictionary creation of city and state and get count of them
+        public void countOfCities()
+        {
+            //To get the required count of persons from cities and states
+            Console.Write("Enter city : ");
+            string city = Console.ReadLine();
+            Console.Write("Enter state : ");
+            string state = Console.ReadLine();
+
+            int cityCount = contactList.FindAll(e => (cityMapWithPerson[e] == city)).Count;
+            int stateCount = contactList.FindAll(e => (stateMapWithPerson[e] == state)).Count;
+
+            Console.WriteLine("Count of Persons who stay in " + city + " is : " + cityCount);
+            Console.WriteLine("Count of Persons who stay in " + state + " is : " + stateCount);
+
+        }
+
     }
 }

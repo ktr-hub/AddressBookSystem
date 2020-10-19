@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -8,7 +9,7 @@ namespace AddressBookSystem
 {
     class AddressBookManager
     {
-        public const int EXIT = 6;
+        public const int EXIT = 5;
         List<AddressBookMain> addressBookList = new List<AddressBookMain>();
         Dictionary<string, AddressBookMain> addressBookDetailsMap = new Dictionary<string, AddressBookMain>();
 
@@ -85,14 +86,15 @@ namespace AddressBookSystem
         public void accessAddressBook(AddressBookMain addressBookUser)
         {
             int choice = 0;
-            while (choice != 5)
+            while (choice != 6)
             {
                 Console.Write("You're currently in AddressBookUser : "+addressBookUser.addressBookUserName +
                                         "\nPress 1. To add Contact \n" +
                                        "      2. To view Contacts\n" +
                                        "      3. To edit a Contact\n" +
                                        "      4. To delete a Contact\n" +
-                                       "      5. Go to address books\n" +
+                                       "      5. To get Number of contacts from city/state\n" +
+                                       "      6. Go to address books\n" +
                                        "Your Choice .: ");
                 try
                 {
@@ -119,6 +121,9 @@ namespace AddressBookSystem
                             addressBookUser.deleteContact();
                             break;
                         case 5:
+                            addressBookUser.countOfCities();
+                            break;
+                        case 6:
                             Console.WriteLine("\nThank You for using user AddressBook of : "+addressBookUser.addressBookUserName+" ...");
                             break;
                         default:
@@ -145,54 +150,42 @@ namespace AddressBookSystem
             }
         }
 
+        //UC 8: To search by states or cities
         public void accessCityFromSystem()
         {
-            Dictionary<string, Contact> cityMapWithPerson = new Dictionary<string, Contact>();
-            Dictionary<string, Contact> stateMapWithPerson = new Dictionary<string, Contact>();
             Console.Write("Enter city : ");
             string city = Console.ReadLine();
             Console.Write("Enter state : ");
             string state = Console.ReadLine();
-            int count = 0;
             foreach(AddressBookMain addressBookUser in addressBookList)
             {
-                foreach(Contact contact in addressBookUser.contactList)
+                if (addressBookUser.contactList.Any(contact => (contact.City == city)))
                 {
-                    //Creating a dictionary
-                    if (!cityMapWithPerson.ContainsValue(contact))
+                    Console.WriteLine("Contacts with specified data : ");
+                    foreach (Contact contact in addressBookUser.contactList.FindAll(contact => (contact.City == city || contact.State == state)))
                     {
-                        cityMapWithPerson.Add(contact.City, contact);
-                    }
-
-                    if (!stateMapWithPerson.ContainsValue(contact))
-                    {
-                        stateMapWithPerson.Add(contact.City, contact);
-                    }
-
-                    //Searching
-                    if (contact.City == city || contact.State== state)
-                    {
-                        if (count == 0)
-                        {
-                            Console.WriteLine("Contacts with specified data : ");
-                        }
                         Console.WriteLine(contact.FirstName);
-                        count++;
                     }
+                }
+                else
+                {
+                    Console.WriteLine("No data found");
                 }
             }
         }
+        
+        
 
         public void startAddressBook()
         {
             int choice = 0;
-            while (choice != EXIT)
+            while (choice != 6)
             {
                 Console.Write("\nPress 1. To add Address Book \n" +
                                        "      2. To view Address Books\n" +
                                        "      3. To add/edit/access/delete contacts of Address Book\n" +
                                        "      4. To delete an Address Book\n" +
-                                       "      5. TO access persons from city/state\n" +
+                                       "      5. To search persons from city/state\n" +
                                        "      6. Exit\n" +
                                        "Your Choice .: ");
                 try
@@ -222,7 +215,7 @@ namespace AddressBookSystem
                         case 5:
                             accessCityFromSystem();
                             break;
-                        case6:
+                        case 6:
                             Console.WriteLine("\nThank You ...");
                             break;
                         default:
