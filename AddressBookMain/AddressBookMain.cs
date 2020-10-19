@@ -9,8 +9,8 @@ namespace AddressBookSystem
 {
     class AddressBookMain
     {
-        List<Contact> contactList = new List<Contact>();
-        Dictionary<string, Contact> contactDetailsMap = new Dictionary<string, Contact>();
+        public List<Contact> contactList = new List<Contact>();
+        public Dictionary<string, Contact> contactDetailsMap = new Dictionary<string, Contact>();
         public string addressBookUserName;
         static ValidationContext validationContext;
         static List<ValidationResult> results = new List<ValidationResult>();
@@ -48,7 +48,7 @@ namespace AddressBookSystem
                 
                 if(contact.Equals(contactDetailsMap, contact.FirstName))
                 {
-                    Console.WriteLine("Same contact already exist on this address book... Try another one...");
+                    Console.WriteLine("Same contact already exists on this address book... Try another one...");
                 }
 
                 if (valid)
@@ -75,6 +75,30 @@ namespace AddressBookSystem
                 string input = Console.ReadLine(); 
                 contact.Address = input;
                 bool valid = validateInputs(contact, input, "Address");
+                if (valid)
+                {
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("\nCity : ");
+                string input = Console.ReadLine();
+                contact.City = input;
+                bool valid = validateInputs(contact, input, "City");
+                if (valid)
+                {
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("\nState : ");
+                string input = Console.ReadLine();
+                contact.State = input;
+                bool valid = validateInputs(contact, input, "State");
                 if (valid)
                 {
                     break;

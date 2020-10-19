@@ -13,6 +13,8 @@ namespace AddressBookSystem
         private string zip;
         private string phoneNumber;
         private string email;
+        private string city;
+        private string state;
 
         //Getters and Setters of Last name ... Annotations to validate it
         [StringLength(20,ErrorMessage = "\n\tString length must be present between 3 and 20",MinimumLength =3)]
@@ -41,6 +43,28 @@ namespace AddressBookSystem
         {
             get { return address; }
             set { address = value; }
+        }
+
+        //Getters and Setters of city ... Annotations to validate it
+        [StringLength(20, ErrorMessage = "\n\tString length must be present between 3 and 20", MinimumLength = 3)]
+        [DataType(DataType.Text)]
+        [RegularExpression(@"^[A-Z][A-Za-z]+$", ErrorMessage = "\n\tPlease enter valid first name (Eg.: Palasa, Vizag) -> Start with Capital -> Should contain Only alphabets")]
+
+        public string City
+        {
+            get { return city; }
+            set { city = value; }
+        }
+
+        //Getters and Setters of State ... Annotations to validate it
+        [StringLength(20, ErrorMessage = "\n\tString length must be present between 3 and 20", MinimumLength = 3)]
+        [DataType(DataType.Text)]
+        [RegularExpression(@"^[A-Z][A-Za-z]+$", ErrorMessage = "\n\tPlease enter valid first name (Eg.: Andhra, Telangana) -> Start with Capital -> Should contain Only alphabets")]
+
+        public string State
+        {
+            get { return state; }
+            set { state = value; }
         }
 
         //Getters and Setters of Zip Code ... Annotations to validate it
@@ -76,7 +100,7 @@ namespace AddressBookSystem
 
         public Boolean Equals(Dictionary<string,Contact> contactList,string firstName)
         {
-            return (contactList.ContainsKey(firstName)) ? false :true;
+            return (contactList.ContainsKey(firstName)) ? true : false;
         }
     }
 }

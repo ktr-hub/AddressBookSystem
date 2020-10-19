@@ -8,7 +8,7 @@ namespace AddressBookSystem
 {
     class AddressBookManager
     {
-        public const int EXIT = 5;
+        public const int EXIT = 6;
         List<AddressBookMain> addressBookList = new List<AddressBookMain>();
         Dictionary<string, AddressBookMain> addressBookDetailsMap = new Dictionary<string, AddressBookMain>();
 
@@ -85,7 +85,7 @@ namespace AddressBookSystem
         public void accessAddressBook(AddressBookMain addressBookUser)
         {
             int choice = 0;
-            while (choice != EXIT)
+            while (choice != 5)
             {
                 Console.Write("You're currently in AddressBookUser : "+addressBookUser.addressBookUserName +
                                         "\nPress 1. To add Contact \n" +
@@ -144,9 +144,33 @@ namespace AddressBookSystem
                 }
             }
         }
+
+        public void accessCityFromSystem()
+        {
+            Console.Write("Enter city : ");
+            string city = Console.ReadLine();
+            Console.Write("Enter state : ");
+            string state = Console.ReadLine();
+            int count = 0;
+            foreach(AddressBookMain addressBookUser in addressBookList)
+            {
+                foreach(Contact contact in addressBookUser.contactList)
+                {
+                    if (contact.City == city || contact.State== state)
+                    {
+                        if (count == 0)
+                        {
+                            Console.WriteLine("Contacts with specified data : ");
+                        }
+                        Console.WriteLine(contact.FirstName);
+                        count++;
+                    }
+                }
+            }
+        }
+
         public void startAddressBook()
         {
-
             int choice = 0;
             while (choice != EXIT)
             {
@@ -154,7 +178,8 @@ namespace AddressBookSystem
                                        "      2. To view Address Books\n" +
                                        "      3. To add/edit/access/delete contacts of Address Book\n" +
                                        "      4. To delete an Address Book\n" +
-                                       "      5. Exit\n" +
+                                       "      5. TO access persons from city/state\n" +
+                                       "      6. Exit\n" +
                                        "Your Choice .: ");
                 try
                 {
@@ -181,6 +206,9 @@ namespace AddressBookSystem
                             deleteAddressBook();
                             break;
                         case 5:
+                            accessCityFromSystem();
+                            break;
+                        case6:
                             Console.WriteLine("\nThank You ...");
                             break;
                         default:
