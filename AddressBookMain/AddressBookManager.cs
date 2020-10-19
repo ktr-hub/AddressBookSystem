@@ -147,6 +147,8 @@ namespace AddressBookSystem
 
         public void accessCityFromSystem()
         {
+            Dictionary<string, Contact> cityMapWithPerson = new Dictionary<string, Contact>();
+            Dictionary<string, Contact> stateMapWithPerson = new Dictionary<string, Contact>();
             Console.Write("Enter city : ");
             string city = Console.ReadLine();
             Console.Write("Enter state : ");
@@ -156,6 +158,18 @@ namespace AddressBookSystem
             {
                 foreach(Contact contact in addressBookUser.contactList)
                 {
+                    //Creating a dictionary
+                    if (!cityMapWithPerson.ContainsValue(contact))
+                    {
+                        cityMapWithPerson.Add(contact.City, contact);
+                    }
+
+                    if (!stateMapWithPerson.ContainsValue(contact))
+                    {
+                        stateMapWithPerson.Add(contact.City, contact);
+                    }
+
+                    //Searching
                     if (contact.City == city || contact.State== state)
                     {
                         if (count == 0)
