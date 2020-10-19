@@ -1,63 +1,193 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text;
 
 namespace AddressBookSystem
 {
     class AddressBookMain
     {
-        List<Contact> contactList=new List<Contact>();
+        List<Contact> contactList = new List<Contact>();
         Dictionary<string, Contact> contactDetailsMap = new Dictionary<string, Contact>();
+        public string addressBookUserName;
+        static ValidationContext validationContext;
+        static List<ValidationResult> results = new List<ValidationResult>();
 
+        public bool validateInputs(Contact contact, string input, string fieldName)
+        {
+            /*
+            if(fieldName.Equals("ZIP")){
+                int inputInInt = Convert.ToInt32(input);
+            }
+            Type type = contact.GetType();
+            string methodName = "set_" + fieldName;
+            MethodInfo method = type.GetMethod(methodName);
+            method.Invoke(contact, new object[]{input});
+            validationContext = new ValidationContext(contact, null, null);
+            bool valid = Validator.TryValidateObject(contact, validationContext, results, true);
+            if (!valid)
+            {
+                Console.WriteLine(results[results.Count - 1].ErrorMessage);
+                return false;
+            }*/
+            return true;
+        }
+
+        //To get user details from the console
 
         public void userInput(Contact contact)
         {
-            Console.WriteLine("\nEnter the following details:\nFirst Name : ");
-            contact.first_name = Console.ReadLine();
-            Console.WriteLine("Last Name : ");
-            contact.last_name = Console.ReadLine();
-            Console.WriteLine("City : ");
-            contact.city = Console.ReadLine();
-            Console.WriteLine("ZIP : ");
-            contact.zip = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Phone No : ");
-            contact.phone_number = Console.ReadLine();
-            Console.WriteLine("Email : ");
-            contact.email = Console.ReadLine();
 
+            Console.WriteLine("\nEnter the following details:");
+
+            while (true)
+            {
+                Console.Write("\nFirst Name : ");
+                string input = Console.ReadLine();
+                bool valid = validateInputs(contact, input ,"FirstName");
+                if (valid)
+                {
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("\nLast Name : ");
+                string input = Console.ReadLine();
+                bool valid = validateInputs(contact, input, "LastName");
+                if (valid)
+                {
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("\nAddress : ");
+                string input = Console.ReadLine();
+                bool valid = validateInputs(contact, input, "Address");
+                if (valid)
+                {
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("\nZIP : ");
+                try
+                {
+                    string input = Console.ReadLine();
+                    int inputConvert = Convert.ToInt32(Console.ReadLine());
+                    bool valid = validateInputs(contact, input, "ZIP");
+                }
+                catch(FormatException exception)
+                {
+                    Console.WriteLine(exception.Message);
+                }
+                if (true)
+                {
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("\nPhone Number : ");
+                string input = Console.ReadLine();
+                bool valid = validateInputs(contact, input, "PhoneNumber");
+                if (valid)
+                {
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("\nEmail : ");
+                string input = Console.ReadLine();
+                bool valid = validateInputs(contact, input, "Email");
+                if (valid)
+                {
+                    break;
+                }
+            }
         }
 
+        //To create a contact in address book
         public void createContact()
         {
             Contact contact = new Contact();
             userInput(contact);
             contactList.Add(contact);
-            contactDetailsMap.Add(contact.first_name, contact);
-            Console.WriteLine("New contact created...");
+            contactDetailsMap.Add(contact.FirstName, contact);
+            Console.WriteLine("\nNew contact created...");
         }
-        public void editContact(string first_name)
+        public void editContact()
         {
-            Contact contact = contactDetailsMap[first_name];
-            userInput(contact);
-            Console.WriteLine("Details edited...");
+            if (contactList.Count==0)
+            {
+                Console.WriteLine("\nNo contacts in the Address Book to edit now ...");
+            }
+            else {
+                Console.WriteLine("\nProvide first_name of contact to be edited : ");
+                string first_name = Console.ReadLine();
+                Contact contact = null;
+                try
+                {
+                    contact = contactDetailsMap[first_name];
+                }
+                catch (KeyNotFoundException exception)
+                {
+                    Console.WriteLine(exception.Message);
+                }
+                finally
+                {
+                    userInput(contact);
+                    Console.WriteLine("\nDetails edited successfully...");
+                }
+            }
         }
         public void viewContactNames()
         {
-            Console.WriteLine("\n\nContact names saved so far : ");
-            foreach(Contact contact in contactList)
+            if (contactList.Count == 0)
             {
-                Console.WriteLine(contact.first_name);
+                Console.WriteLine("No contacts in the Address Book to display");
+            }
+            else
+            {
+                Console.WriteLine("\n\nContact names saved so far : ");
+                int count = 1;
+                foreach (Contact contact in contactList)
+                {
+                    Console.WriteLine((count++)+")\t"+contact.FirstName+"\t"+contact.LastName+"\t"+contact.Address+"\t"+contact.Zip+"\t"+contact.PhoneNumber+"\t"+contact.Email);
+                }
             }
         }
-
-        public void deleteContact(string first_name)
+        public void deleteContact()
         {
+            if (contactList.Count==0)
+            {
+                Console.WriteLine("\nNo contacts in the Address Book to delete now...");
+            }
+            else {
 
-            contactList.Remove(contactDetailsMap[first_name]);
-            contactDetailsMap.Remove(first_name);
-            Console.WriteLine("Contact " + first_name + " deleted successfully...");   
+                Console.Write("\nProvide first_name of contact to be deleted : ");
+                string first_name = Console.ReadLine();
+                try
+                {
+                    contactList.Remove(contactDetailsMap[first_name]);
+                    contactDetailsMap.Remove(first_name);
+                    Console.WriteLine("\nContact " + first_name + " deleted successfully...");
+                }
+                catch (KeyNotFoundException exception)
+                {
+                    Console.WriteLine(exception.Message);
+                }
+            }
         }
-
     }
 }
