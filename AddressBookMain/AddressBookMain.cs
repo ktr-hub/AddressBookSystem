@@ -39,13 +39,18 @@ namespace AddressBookSystem
         {
 
             Console.WriteLine("\nEnter the following details:");
-
             while (true)
             {
                 Console.Write("\nFirst Name : ");
                 string input = Console.ReadLine();
                 contact.FirstName = input;
-                bool valid = validateInputs(contact, input ,"FirstName");
+                bool valid = validateInputs(contact, input, "FirstName");
+                
+                if(contact.Equals(contactDetailsMap, contact.FirstName))
+                {
+                    Console.WriteLine("Same contact already exist on this address book... Try another one...");
+                }
+
                 if (valid)
                 {
                     break;
@@ -130,6 +135,7 @@ namespace AddressBookSystem
             contactList.Add(contact);
             contactDetailsMap.Add(contact.FirstName, contact);
             Console.WriteLine("\nNew contact created...");
+
         }
         public void editContact()
         {

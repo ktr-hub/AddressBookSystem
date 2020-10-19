@@ -73,5 +73,10 @@ namespace AddressBookSystem
             get { return email; }
             set { email = value; }
         }
+
+        public Boolean Equals(Dictionary<string,Contact> contactList,string firstName)
+        {
+            return (contactList.ContainsKey(firstName)) ? false :true;
+        }
     }
 }
