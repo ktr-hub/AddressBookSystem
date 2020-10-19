@@ -7,6 +7,12 @@ namespace AddressBookSystem
 {
     class Contact
     {
+        private string firstName;
+        private string lastName;
+        private string address;
+        private string zip;
+        private string phoneNumber;
+        private string email;
 
         //Getters and Setters of Last name ... Annotations to validate it
         [StringLength(20,ErrorMessage = "\n\tString length must be present between 3 and 20",MinimumLength =3)]
@@ -14,7 +20,8 @@ namespace AddressBookSystem
         [RegularExpression(@"^[A-Z][A-Za-z]+$",ErrorMessage = "\n\tPlease enter valid first name (Eg.: John, Tom) -> Start with Capital -> Should contain Only alphabets")]
         public string FirstName 
         {
-            get; set;
+            get { return firstName; }
+            set { firstName = value; }
         }
 
         //Getters and Setters of Last name ... Annotations to validate it
@@ -23,7 +30,8 @@ namespace AddressBookSystem
         [RegularExpression(@"^[A-Z][A-Za-z]+", ErrorMessage = "\n\tPlease enter valid first name (Eg.: John, Tom) -> Start with Capital -> Should contain Only alphabets")]
         public string LastName
         {
-            get; set;
+            get { return lastName; }
+            set { lastName = value; }
         }
 
         //Getters and Setters of Address ... Annotations to validate it
@@ -31,16 +39,18 @@ namespace AddressBookSystem
         [DataType(DataType.MultilineText)]
         public string Address
         {
-            get; set;
+            get { return address; }
+            set { address = value; }
         }
 
         //Getters and Setters of Zip Code ... Annotations to validate it
         [StringLength(6, ErrorMessage = "\n\tZIP code number should consist 6 digits")]
         [DataType(DataType.Text)]
         [RegularExpression(@"^[0-9]{6}", ErrorMessage = "\n\tPlease enter valid ZIP Code (Eg.: 012345) ->  Should contain Only numbers")]
-        public int Zip
+        public string Zip
         {
-            get; set;
+            get { return zip; }
+            set { zip = value; }
         }
 
         //Getters and Setters of Phone Number ... Annotations to validate it
@@ -50,7 +60,8 @@ namespace AddressBookSystem
         [Phone]
         public string PhoneNumber
         {
-            get;set;
+            get { return phoneNumber; }
+            set { phoneNumber = value; }
         }
 
         //Getters and Setters of Email ... Annotations to validate it
@@ -59,7 +70,8 @@ namespace AddressBookSystem
         [EmailAddress]
         public string Email
         {
-            get; set;
+            get { return email; }
+            set { email = value; }
         }
     }
 }

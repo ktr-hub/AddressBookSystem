@@ -23,7 +23,15 @@ namespace AddressBookSystem
                 Regex regex = new Regex(@"^[A-Za-z]+$");
                 if (regex.IsMatch(userInput))
                 {
+                    if(addressBookDetailsMap.ContainsKey(userInput))
+                    {
+                        Console.WriteLine(userInput + " address book already exists on the system...");
+                        break;
+                    }
                     addressBookMain.addressBookUserName = userInput;
+                    addressBookList.Add(addressBookMain);
+                    addressBookDetailsMap.Add(addressBookMain.addressBookUserName, addressBookMain);
+                    Console.WriteLine("\nNew Address Book created...");
                     break;
                 }
                 else
@@ -31,9 +39,6 @@ namespace AddressBookSystem
                     Console.WriteLine("Invalid Input... Please enter correctly... ->Only alphabets allowed");
                 }
             }
-            addressBookList.Add(addressBookMain);
-            addressBookDetailsMap.Add(addressBookMain.addressBookUserName, addressBookMain);
-            Console.WriteLine("\nNew Address Book created...");
         }
         public void deleteAddressBook()
         {

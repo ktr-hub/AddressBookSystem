@@ -17,10 +17,8 @@ namespace AddressBookSystem
 
         public bool validateInputs(Contact contact, string input, string fieldName)
         {
+           
             /*
-            if(fieldName.Equals("ZIP")){
-                int inputInInt = Convert.ToInt32(input);
-            }
             Type type = contact.GetType();
             string methodName = "set_" + fieldName;
             MethodInfo method = type.GetMethod(methodName);
@@ -46,6 +44,7 @@ namespace AddressBookSystem
             {
                 Console.Write("\nFirst Name : ");
                 string input = Console.ReadLine();
+                contact.FirstName = input;
                 bool valid = validateInputs(contact, input ,"FirstName");
                 if (valid)
                 {
@@ -57,6 +56,7 @@ namespace AddressBookSystem
             {
                 Console.Write("\nLast Name : ");
                 string input = Console.ReadLine();
+                contact.LastName = input;
                 bool valid = validateInputs(contact, input, "LastName");
                 if (valid)
                 {
@@ -67,7 +67,8 @@ namespace AddressBookSystem
             while (true)
             {
                 Console.Write("\nAddress : ");
-                string input = Console.ReadLine();
+                string input = Console.ReadLine(); 
+                contact.Address = input;
                 bool valid = validateInputs(contact, input, "Address");
                 if (valid)
                 {
@@ -81,16 +82,18 @@ namespace AddressBookSystem
                 try
                 {
                     string input = Console.ReadLine();
-                    int inputConvert = Convert.ToInt32(Console.ReadLine());
+                    contact.Zip = input;
+                    int inputConvert = Convert.ToInt32(input);
+
                     bool valid = validateInputs(contact, input, "ZIP");
+                    if (valid)
+                    {
+                        break;
+                    }
                 }
                 catch(FormatException exception)
                 {
                     Console.WriteLine(exception.Message);
-                }
-                if (true)
-                {
-                    break;
                 }
             }
 
@@ -98,6 +101,7 @@ namespace AddressBookSystem
             {
                 Console.Write("\nPhone Number : ");
                 string input = Console.ReadLine();
+                contact.PhoneNumber = input;
                 bool valid = validateInputs(contact, input, "PhoneNumber");
                 if (valid)
                 {
@@ -109,6 +113,7 @@ namespace AddressBookSystem
             {
                 Console.Write("\nEmail : ");
                 string input = Console.ReadLine();
+                contact.Email = input;
                 bool valid = validateInputs(contact, input, "Email");
                 if (valid)
                 {
