@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text;
+using System.Transactions;
 
 namespace AddressBookSystem
 {
@@ -198,15 +199,89 @@ namespace AddressBookSystem
             }
             else
             {
-                Console.WriteLine("\n\nContact names saved so far : ");
-                int count = 1;
-                contactList.Sort((x, y) => (x.FirstName.CompareTo(y.FirstName)));
-                foreach (Contact contact in contactList)
+                Boolean boolean = true;
+                while (boolean)
                 {
-                    Console.WriteLine((count++)+")\t"+contact.FirstName+"\t"+contact.LastName+"\t"+contact.Address+"\t"+contact.Zip+"\t"+contact.PhoneNumber+"\t"+contact.Email);
+                    Console.Write("Select sorting order to view : \n 1:First Name\n 2:City\n 3.ZIP\n 4.State\n Your Choice : ");
+                    try
+                    {
+                        int choice = Convert.ToInt32(Console.ReadLine());
+                        switch (choice)
+                        {
+                            case 1: SortByName();
+                                boolean = false;
+                                break;
+                            case 2: SortByCity();
+                                boolean = false;
+                                break;
+                            case 3: SortByZIP();
+                                boolean = false;
+                                break;
+                            case 4: SortByState();
+                                boolean = false;
+                                break;
+                            default:
+                                Console.Write("Enter valid input :- ");
+                                break;
+                        }
+                    }
+                    catch (FormatException exception)
+                    {
+                        Console.WriteLine(exception.Message);
+                    }
                 }
+                
             }
         }
+
+        public void SortByName()
+        {
+            Console.WriteLine("\n\nContact names saved so far : ");
+            int count = 1;
+            contactList.Sort((x, y) => (x.FirstName.CompareTo(y.FirstName)));
+
+            foreach (Contact contact in contactList)
+            {
+                Console.WriteLine((count++) + ")\t" + contact.FirstName + "\t" + contact.LastName + "\t" + contact.Address + "\t" + contact.Zip + "\t" + contact.PhoneNumber + "\t" + contact.Email);
+            }
+        }
+
+        public void SortByCity()
+        {
+            Console.WriteLine("\n\nContact names saved so far : ");
+            int count = 1;
+            contactList.Sort((x, y) => (x.city.CompareTo(y.city)));
+
+            foreach (Contact contact in contactList)
+            {
+                Console.WriteLine((count++) + ")\t" + contact.city + "\t" + contact.firstName+"\t"+ contact.LastName + "\t" + contact.Address + "\t" + contact.Zip + "\t" + contact.PhoneNumber + "\t" + contact.Email);
+            }
+        }
+
+        public void SortByZIP()
+        {
+            Console.WriteLine("\n\nContact names saved so far : ");
+            int count = 1;
+            contactList.Sort((x, y) => (x.zip.CompareTo(y.zip)));
+
+            foreach (Contact contact in contactList)
+            {
+                Console.WriteLine((count++) + ")\t" + contact.zip + "\t" + contact.firstName + "\t" + contact.LastName + "\t" + contact.Address + "\t" + contact.City + "\t" + contact.PhoneNumber + "\t" + contact.Email);
+            }
+        }
+
+        public void SortByState()
+        {
+            Console.WriteLine("\n\nContact names saved so far : ");
+            int count = 1;
+            contactList.Sort((x, y) => (x.state.CompareTo(y.state)));
+
+            foreach (Contact contact in contactList)
+            {
+                Console.WriteLine((count++) + ")\t" + contact.state + "\t" + contact.firstName + "\t" + contact.LastName + "\t" + contact.Address + "\t" + contact.City + "\t" + contact.PhoneNumber + "\t" + contact.Email);
+            }
+        }
+
         public void deleteContact()
         {
             if (contactList.Count==0)

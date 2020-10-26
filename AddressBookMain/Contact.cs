@@ -7,14 +7,14 @@ namespace AddressBookSystem
 {
     class Contact
     {
-        private string firstName;
-        private string lastName;
-        private string address;
-        private string zip;
-        private string phoneNumber;
-        private string email;
-        private string city;
-        private string state;
+        public string firstName;
+        public string lastName;
+        public string address;
+        public string zip;
+        public string phoneNumber;
+        public string email;
+        public string city;
+        public string state;
 
         //Getters and Setters of Last name ... Annotations to validate it
         [StringLength(20,ErrorMessage = "\n\tString length must be present between 3 and 20",MinimumLength =3)]
