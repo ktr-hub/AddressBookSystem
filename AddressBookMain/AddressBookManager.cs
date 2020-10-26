@@ -143,6 +143,7 @@ namespace AddressBookSystem
             {
                 Console.WriteLine("\n\nAddress Book users saved so far : ");
                 int count = 1;
+                addressBookList.Sort((x,y) => (x.addressBookUserName.CompareTo(y.addressBookUserName)));
                 foreach (AddressBookMain addressBookMain in addressBookList)
                 {
                     Console.WriteLine((count++) + ")\t" + addressBookMain.addressBookUserName);
@@ -173,8 +174,6 @@ namespace AddressBookSystem
                 }
             }
         }
-        
-        
 
         public void startAddressBook()
         {

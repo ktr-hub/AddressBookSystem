@@ -200,6 +200,7 @@ namespace AddressBookSystem
             {
                 Console.WriteLine("\n\nContact names saved so far : ");
                 int count = 1;
+                contactList.Sort((x, y) => (x.FirstName.CompareTo(y.FirstName)));
                 foreach (Contact contact in contactList)
                 {
                     Console.WriteLine((count++)+")\t"+contact.FirstName+"\t"+contact.LastName+"\t"+contact.Address+"\t"+contact.Zip+"\t"+contact.PhoneNumber+"\t"+contact.Email);
