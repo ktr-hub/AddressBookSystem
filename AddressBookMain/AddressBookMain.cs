@@ -232,6 +232,7 @@ namespace AddressBookSystem
                 }
                 FileInputOutput file = new FileInputOutput();
                 file.WriteContactsIntoFile(contactList);
+                FileInputOutput.WriteContactsIntoCsv(contactList);
             }
         }
 

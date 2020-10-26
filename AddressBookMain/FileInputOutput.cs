@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
+using CsvHelper;
+using Newtonsoft.Json;
 
 namespace AddressBookSystem
 {
     class FileInputOutput
     {
+
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string city { get; set; }
+        public int zip { get; set; }
+        public string address { get; set; }
+        public string phone { get; set; }
+
         public void WriteContactsIntoFile(List<Contact> contacts)
         {
             String path = @"C:\Users\Tirupathi Rao\source\repos\AddressBookMain\AddressBookMain\Exapmple.txt";
@@ -22,7 +35,6 @@ namespace AddressBookSystem
             stream.Close();
             ReadContactsFromFile(contacts);
         }
-
         public void ReadContactsFromFile(List<Contact> contacts)
         {
             String path = @"C:\Users\Tirupathi Rao\source\repos\AddressBookMain\AddressBookMain\Exapmple.txt";
@@ -31,6 +43,33 @@ namespace AddressBookSystem
             
             Console.WriteLine(stream.ReadToEnd());
             stream.Close();
+        }
+        public static void WriteContactsIntoCsv(List<Contact> contacts)
+        {
+            string path = @"C:\Users\Tirupathi Rao\source\repos\AddressBookMain\AddressBookMain\export.csv";
+
+            using (StreamWriter stream = new StreamWriter(path))
+            using (CsvWriter csvWriter = new CsvWriter(stream, CultureInfo.InvariantCulture))
+            {
+                csvWriter.WriteRecords(contacts);
+            }
+            Console.WriteLine("Following data line added to CSV file...");
+            ReadContactsFromCSV();
+        }
+        public static void ReadContactsFromCSV()
+        {
+            string path = @"C:\Users\Tirupathi Rao\source\repos\AddressBookMain\AddressBookMain\export.csv";
+
+            using(StreamReader reader = new StreamReader(path))
+            using(var read = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var contacts = read.GetRecords<Contact>().ToList();
+                foreach(Contact contact in contacts)
+                {
+                    Console.WriteLine(contact.FirstName+","+contact.LastName + "," + contact.Address + "," + contact.City + "," + contact.State + "," + contact.Zip + "," + contact.PhoneNumber + "," + contact.Email);
+                }
+            }
+
         }
 
     }
