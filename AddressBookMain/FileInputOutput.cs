@@ -72,5 +72,23 @@ namespace AddressBookSystem
 
         }
 
+        public static void JsonSerializeDeserialize(List<Contact> contacts)
+        {
+            string path = @"C:\Users\Tirupathi Rao\source\repos\AddressBookMain\AddressBookMain\export.csv";
+
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamWriter writer = new StreamWriter(path))
+            using (var write = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                serializer.Serialize(writer,contacts);
+            }
+
+            IList<Contact> contacts1 = JsonConvert.DeserializeObject<IList<Contact>>(File.ReadAllText(path));
+            foreach (Contact contact in contacts)
+            {
+                Console.WriteLine(contact.FirstName + "," + contact.LastName + "," + contact.Address + "," + contact.City + "," + contact.State + "," + contact.Zip + "," + contact.PhoneNumber + "," + contact.Email);
+            }
+        }
+
     }
 }
