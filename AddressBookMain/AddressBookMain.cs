@@ -230,7 +230,8 @@ namespace AddressBookSystem
                         Console.WriteLine(exception.Message);
                     }
                 }
-                
+                FileInputOutput file = new FileInputOutput();
+                file.WriteContactsIntoFile(contactList);
             }
         }
 
