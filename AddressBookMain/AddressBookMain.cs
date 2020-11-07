@@ -20,8 +20,6 @@ namespace AddressBookSystem
 
         public bool validateInputs(Contact contact, string input, string fieldName)
         {
-           
-            /*
             Type type = contact.GetType();
             string methodName = "set_" + fieldName;
             MethodInfo method = type.GetMethod(methodName);
@@ -32,7 +30,7 @@ namespace AddressBookSystem
             {
                 Console.WriteLine(results[results.Count - 1].ErrorMessage);
                 return false;
-            }*/
+            }
             return true;
         }
 
@@ -117,7 +115,7 @@ namespace AddressBookSystem
                     contact.Zip = input;
                     int inputConvert = Convert.ToInt32(input);
 
-                    bool valid = validateInputs(contact, input, "ZIP");
+                    bool valid = validateInputs(contact, input, "Zip");
                     if (valid)
                     {
                         break;
@@ -165,6 +163,9 @@ namespace AddressBookSystem
             contactDetailsMap.Add(contact.FirstName, contact);
             Console.WriteLine("\nNew contact created...");
 
+            //FileInputOutput file = new FileInputOutput();
+            //file.WriteContactsIntoFile(contactList);
+            FileInputOutput.JsonSerializeDeserialize(contactList);
         }
         public void editContact()
         {
@@ -188,6 +189,10 @@ namespace AddressBookSystem
                 {
                     userInput(contact);
                     Console.WriteLine("\nDetails edited successfully...");
+
+                    //FileInputOutput file = new FileInputOutput();
+                    //file.WriteContactsIntoFile(contactList);
+                    FileInputOutput.JsonSerializeDeserialize(contactList);
                 }
             }
         }
@@ -230,9 +235,6 @@ namespace AddressBookSystem
                         Console.WriteLine(exception.Message);
                     }
                 }
-                //FileInputOutput file = new FileInputOutput();
-                //file.WriteContactsIntoFile(contactList);
-                FileInputOutput.JsonSerializeDeserialize(contactList);
             }
         }
 
@@ -299,6 +301,9 @@ namespace AddressBookSystem
                     contactList.Remove(contactDetailsMap[first_name]);
                     contactDetailsMap.Remove(first_name);
                     Console.WriteLine("\nContact " + first_name + " deleted successfully...");
+                    //FileInputOutput file = new FileInputOutput();
+                    //file.WriteContactsIntoFile(contactList);
+                    FileInputOutput.JsonSerializeDeserialize(contactList);
                 }
                 catch (KeyNotFoundException exception)
                 {

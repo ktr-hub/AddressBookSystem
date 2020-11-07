@@ -49,7 +49,6 @@ namespace AddressBookSystem
         [StringLength(20, ErrorMessage = "\n\tString length must be present between 3 and 20", MinimumLength = 3)]
         [DataType(DataType.Text)]
         [RegularExpression(@"^[A-Z][A-Za-z]+$", ErrorMessage = "\n\tPlease enter valid first name (Eg.: Palasa, Vizag) -> Start with Capital -> Should contain Only alphabets")]
-
         public string City
         {
             get { return city; }
@@ -70,7 +69,7 @@ namespace AddressBookSystem
         //Getters and Setters of Zip Code ... Annotations to validate it
         [StringLength(6, ErrorMessage = "\n\tZIP code number should consist 6 digits")]
         [DataType(DataType.Text)]
-        [RegularExpression(@"^[0-9]{6}", ErrorMessage = "\n\tPlease enter valid ZIP Code (Eg.: 012345) ->  Should contain Only numbers")]
+        [RegularExpression(@"^[0-9]{6}", ErrorMessage = "\n\tPlease enter valid ZIP Code (Eg.: 012345) ->  Should contain Only numbers ->Should contain 6 digits")]
         public string Zip
         {
             get { return zip; }
@@ -79,8 +78,7 @@ namespace AddressBookSystem
 
         //Getters and Setters of Phone Number ... Annotations to validate it
         [StringLength(14, ErrorMessage = "\n\tPhone number should follow this format +91 1234567890")]
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^[+][9][1]/s[0-9]{10}", ErrorMessage = "\n\tPlease enter valid Phone Number (Eg.: +91 1234567890) -> Start with '+91' -> Should contain Only Numbers")]
+        [RegularExpression(@"^[+][9][1]\s[0-9]{10}$", ErrorMessage = "\n\tPlease enter valid Phone Number (Eg.: +91 1234567890) -> Start with '+91' -> Should contain Only Numbers")]
         [Phone]
         public string PhoneNumber
         {
@@ -90,6 +88,7 @@ namespace AddressBookSystem
 
         //Getters and Setters of Email ... Annotations to validate it
         [StringLength(40, ErrorMessage = "\n\tPlease enter valid Email (Eg.: ktr@gmail.com)")]
+        [RegularExpression(@"^[a-z][a-z0-9]*([.-_+][a-z0-9]+)?@([a-z0-9]+[.]){1,2}[a-z]{2,}$", ErrorMessage = "\n\tPlease enter valid Email (Eg.: tiru@gmail.com)")]
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
         public string Email
